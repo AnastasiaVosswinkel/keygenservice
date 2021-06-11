@@ -93,19 +93,16 @@ where you should see the JSON, like this:
 * LicenseKey.java, also used to generate the Table (@Entity, @Id, @GeneratedValue(strategy = GenerationType.IDENTITY))
 		
 
-	package com.example.demo.model;
+		package com.example.demo.model;
 
-	import java.io.Serializable;
-	
-	import javax.persistence.Entity;
-	import javax.persistence.GeneratedValue;
-	import javax.persistence.GenerationType;
-	import javax.persistence.Id;
-	
-	
-	@Entity
-	public class LicenseKey implements Serializable{
-		
+		import java.io.Serializable;
+
+		import javax.persistence.Entity;
+		import javax.persistence.GeneratedValue;
+		import javax.persistence.GenerationType;
+		import javax.persistence.Id;
+		@Entity
+		public class LicenseKey implements Serializable{
 		private static final long serialVersionUID = 1L;
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -122,7 +119,7 @@ where you should see the JSON, like this:
 
 * KeyGenRestController.java
  
-It has the @RestController annotation:
+	It has the @RestController annotation:
 
 
 	@RequestMapping("/licensekeys")
@@ -154,31 +151,12 @@ It has the @RestController annotation:
 * KeyGenService.java
 	
 	
-	package com.example.demo.service;
 	
-	import java.security.InvalidKeyException;
-	import java.security.NoSuchAlgorithmException;
-	import java.util.List;
-	import java.util.Random;
-	
-	import javax.crypto.BadPaddingException;
-	import javax.crypto.Cipher;
-	import javax.crypto.IllegalBlockSizeException;
-	import javax.crypto.NoSuchPaddingException;
-	import javax.crypto.spec.SecretKeySpec;
-	
-	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.stereotype.Service;
-	
-	import com.example.demo.constant.Const;
-	import com.example.demo.dao.IKeyGenDao;
-	import com.example.demo.model.LicenseKey;
-	@Service
-	public class KeyGenService implements IKeyGenService {
-		@Autowired 
-		private IKeyGenDao dao;
-		
-	
+		...
+		@Service
+		public class KeyGenService implements IKeyGenService {
+			@Autowired 
+			private IKeyGenDao dao;
 		@Override
 		public LicenseKey attachLicenseKey (LicenseKey lk) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 			
@@ -220,13 +198,12 @@ It has the @RestController annotation:
 			return dao.findByEncryptedKey(encryptedKey);
 		}
 	
-	}
+	
 
 
 
  
  
-
 
 # Web Client
 
@@ -254,45 +231,45 @@ The Web Client is [here](https://github.com/AnastasiaVosswinkel/keygenclient) on
  
 
 
-#How to use Web Client:
+# How to use Web Client:
 
 Go to http://localhost:8088/Keygen.xhtml
 
 * Choose the Product 
-* Push "Generate". You should see the generated key like this: 471E5F45C829F43C173DD4C9A225093C.
-* To validates the key or any other key push "Check".
+* Push "Generate". You should see the generated Key like this: 471E5F45C829F43C173DD4C9A225093C.
+* To validates the Key or any other Key push "Check".
 
 
 ### Classes Web Client:
 
  * Bean
 
-	package com.example.demo.beans;
+		package com.example.demo.beans;
 
-	
-	import javax.faces.view.ViewScoped;
-	import javax.inject.Named;
-	
-	import org.springframework.beans.factory.annotation.Autowired;
-	
-	import com.example.demo.model.LicenseKey;
-	import com.example.demo.model.Product;
-	import com.example.demo.service.KeyService;
-	
-	@ViewScoped
-	@Named
-	public class KeyGenBean {
-		@Autowired
-		private KeyService keyService;
 
-	private LicenseKey licenseKey = new LicenseKey();
-	private String selectedProduct;
-	private String generatedKey = "";
-	private String check = " ";
-	String userKey;
-	String keyComment;
+		import javax.faces.view.ViewScoped;
+		import javax.inject.Named;
 
-	public void generate() {
+		import org.springframework.beans.factory.annotation.Autowired;
+
+		import com.example.demo.model.LicenseKey;
+		import com.example.demo.model.Product;
+		import com.example.demo.service.KeyService;
+
+		@ViewScoped
+		@Named
+		public class KeyGenBean {
+			@Autowired
+			private KeyService keyService;
+
+		private LicenseKey licenseKey = new LicenseKey();
+		private String selectedProduct;
+		private String generatedKey = "";
+		private String check = " ";
+		String userKey;
+		String keyComment;
+
+		public void generate() {
 
 		licenseKey = keyService.generateLicenseKey(selectedProduct, keyComment);
 		generatedKey = licenseKey.getEncryptedKey();
@@ -365,7 +342,7 @@ Go to http://localhost:8088/Keygen.xhtml
 	
 	
 	
-#####Keygen.xhtml with Primefaces:
+##### Keygen.xhtml with Primefaces:
 
 	...
 	<!-- http://localhost:8088/Keygen.xhtml -->
